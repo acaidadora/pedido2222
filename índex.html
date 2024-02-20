@@ -1,1 +1,58 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Seleção de Produto</title>
+</head>
+<body>
 
+<h1>Escolha o tamanho do Açaí:</h1>
+
+<select id="tamanho-acai">
+    <option value="300g">300g</option>
+    <option value="500g">500g</option>
+    <option value="700g">700g</option>
+</select>
+
+<h2>Selecione os adicionais:</h2>
+
+<input type="checkbox" id="creme-de-ninho" name="adicionais" value="Creme de Ninho">
+<label for="creme-de-ninho">Creme de Ninho</label><br>
+
+<input type="checkbox" id="kiwi" name="adicionais" value="Kiwi">
+<label for="kiwi">Kiwi</label><br>
+
+<!-- Adicione mais checkboxes para os outros adicionais -->
+
+<button onclick="adicionarAoCarrinho()">Adicionar ao Carrinho</button>
+
+<script>
+    function adicionarAoCarrinho() {
+        // Obter o tamanho selecionado do açaí
+        var tamanhoAcai = document.getElementById("tamanho-acai").value;
+
+        // Obter os adicionais selecionados
+        var adicionaisSelecionados = [];
+        var checkboxes = document.querySelectorAll('input[name="adicionais"]:checked');
+        checkboxes.forEach(function(checkbox) {
+            adicionaisSelecionados.push(checkbox.value);
+        });
+
+        // Construir a mensagem com as informações do produto e adicionais
+        var mensagem = "Açaí Premium " + tamanhoAcai + "\n\nAdicionais selecionados:\n";
+        adicionaisSelecionados.forEach(function(adicional) {
+            mensagem += adicional + "\n";
+        });
+
+        // Formatar a mensagem para a URL do WhatsApp
+        mensagem = encodeURIComponent(mensagem);
+
+        // Abrir uma nova janela do WhatsApp com a mensagem
+        var urlWhatsApp = "https://api.whatsapp.com/send?phone=5585997030075&text=" + mensagem;
+        window.open(urlWhatsApp, "_blank");
+    }
+</script>
+
+</body>
+</html>
