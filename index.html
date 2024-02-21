@@ -396,10 +396,11 @@ checkboxes.forEach(function(checkbox) {
     });
 	  // Adiciona o total da compra ao final da mensagem
     mensagem += 'Total: R$ ' + calcularTotal();
-	
-    // URL do WhatsApp com a mensagem
-    var urlWhatsApp = 'https://api.whatsapp.com/send?text=' + encodeURIComponent(mensagem);
-    // Abrir a página do WhatsApp
+
+var numeroWhatsApp = '5585997030075'; // Substitua pelo número de telefone desejado
+var urlWhatsApp = 'https://wa.me/' + numeroWhatsApp + '?text=' + encodeURIComponent(mensagem);	    
+  
+	    // Abrir a página do WhatsApp
     window.open(urlWhatsApp, '_blank');
 }
 
