@@ -105,20 +105,20 @@
 
     <div class="row justify-content-center">
         <!-- Produto 1 -->
-        <div class="col-md-8">
+        <div class="col-md-6">
             <div class="card mb-4 box-shadow">
-                <img id="imagemProduto1" src="./images/acai300g.png" alt="Açaí Premium 300g" class="card-img-top">
-                <div class="card-body text-center">
-                    <h5 class="card-title">Açaí Premium</h5>
-                    <p id="textoAdicionais" class="card-text">Permite até 3 Adicionais</p>
-                    <form>
-                        <select class="form-control mb-3" id="tamanhoAcai1" onchange="atualizarImagem('imagemProduto1', 'tamanhoAcai1')">
-                            <option value="300g" data-adicionais="3">300g</option>
-                            <option value="500g" data-adicionais="4">500g</option>
-                            <option value="700g" data-adicionais="5">700g</option>
-                        </select>
+               
+                    <img id="imagemProduto1" src="./images/acai300g.png" alt="Açaí Premium 300g" class="card-img-top">
+               
+                    <h5 class="card-title">Açaí Premium</h5> <!-- Alterado o título -->
+                   <p id="textoAdicionais" class="card-text">Permite até 3 Adicionais</p> <!-- Alterado o texto -->
+                 <form>
+                        <select class="form-control" id="tamanhoAcai1" onchange="atualizarImagem('imagemProduto1', 'tamanhoAcai1')">
+                        <option value="300g" data-adicionais="3">300g</option>
+                        <option value="500g" data-adicionais="4">500g</option>
+                        <option value="700g" data-adicionais="5">700g</option>
+                    </select>
                         <div class="form-check">
-                            <!-- Lista de checkboxes para os adicionais -->
                             <label>Adicionais:</label><br>
                             
                             <input type="checkbox" id="cremeDeNinho" name="adicionais" value="Creme de Ninho">
@@ -165,6 +165,8 @@
                             
                             <input type="checkbox" id="mAndM" name="adicionais" value="M&M">
                             <label for="mAndM">M&M</label><br>
+
+                            
                         </div>
                         <small class="text-muted">Selecione até 3 adicionais</small><br>
                         <button type="button" class="btn btn-primary mt-2" onclick="adicionarAoCarrinho('Açaí Premium')">
@@ -172,7 +174,9 @@
                             Adicionar ao Carrinho
                         </button>
                     </form>
-                </div>
+             
+
+                
             </div>
         </div>
     </div>
