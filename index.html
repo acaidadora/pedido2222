@@ -134,7 +134,7 @@
 </div>
 
     <!-- Botão flutuante do carrinho -->
-    <button class="btn-flutuante" onclick="toggleCarrinho()">
+    <button class="btn-flutuante" data-toggle="modal" data-target="#carrinhoModal">
         <i class="fas fa-shopping-cart"></i> <!-- Ícone do carrinho -->
         <div id="alertCarrinho" class="alert-carrinho">0</div> <!-- Alerta com o número de itens no carrinho -->
     </button>
@@ -148,7 +148,6 @@
 
 <script>
     var carrinho = [];
-    var carrinhoModal = document.getElementById('carrinhoModal');
     var alertCarrinho = document.getElementById('alertCarrinho');
 
     function atualizarImagem(idImagem, idSelect) {
@@ -207,14 +206,6 @@
                 }
                 listaCarrinho.appendChild(listItem);
             });
-        }
-    }
-
-    function toggleCarrinho() {
-        carrinhoModal.classList.toggle('show');
-        if (carrinhoModal.classList.contains('show')) {
-            // Atualizar o conteúdo do carrinho quando a modal é exibida
-            exibirCarrinho();
         }
     }
 </script>
