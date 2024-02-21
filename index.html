@@ -35,28 +35,7 @@
             right: 10px;
             cursor: pointer;
         }
-        .modal-content {
-            width: 80%;
-            max-width: 400px;
-            position: fixed;
-            right: -400px; /* Posição inicial - fora da tela */
-            top: 0;
-            height: 100%;
-            margin: 0;
-            border: none;
-            border-radius: 0;
-            transition: right 0.3s ease;
-        }
-        .modal.show .modal-content {
-            right: 0; /* Posição final - totalmente visível */
-        }
-        .modal-backdrop.show {
-            opacity: 0.5;
-        }
-        .modal-dialog {
-            margin: 0;
-        }
-
+       
          /* Botão flutuante */
         .btn-flutuante {
             position: fixed;
@@ -191,10 +170,9 @@
    
    
 
-    <!-- Carrinho -->
-<div class="modal" id="carrinhoModal" tabindex="-1" role="dialog">
+    <div class="modal" id="carrinhoModal" tabindex="-1" role="dialog">
     <div class="modal-dialog modal-dialog-centered" role="document">
-        <div class="modal-content" style="background-color: #6F4A8E;">
+        <div class="modal-content" style="background-color: #6F4A8E; position: fixed; right: 0;">
             <div class="modal-header">
                 <h5 class="modal-title text-white">Carrinho de Compras</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -210,6 +188,7 @@
         </div>
     </div>
 </div>
+
 
 
    
@@ -284,6 +263,12 @@ function adicionarAoCarrinho(produto) {
     };
     carrinho.push(item);
     exibirCarrinho();
+	
+	// Limpar todos os checkboxes
+    var checkboxes = document.querySelectorAll('input[name="adicionais"]');
+    checkboxes.forEach(function(checkbox) {
+        checkbox.checked = false;
+    });
 }
 
 // Event listener para os checkboxes
