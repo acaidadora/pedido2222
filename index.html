@@ -26,7 +26,11 @@
             <div class="card mb-4 box-shadow">
                  <img id="imagemProduto" src="./images/acai300g.png" alt="Açaí Premium 300g">
                 <div class="card-body">
-                    <h4 class="card-title">Açaí Premium 300g</h4>
+                   <select class="form-control" id="tamanhoAcai" onchange="atualizarImagem()">
+                <option value="300g">Açaí Premium 300g</option>
+                <option value="500g">Açaí Premium 500g</option>
+                <option value="700g">Açaí Premium 700g</option>
+            </select>
                     <p class="card-text">Permite até 3 Adicionais</p>
                     <form action="https://api.whatsapp.com/send" method="GET" target="_blank">
                         <input type="hidden" name="phone" value="5585997030075">
