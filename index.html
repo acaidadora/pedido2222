@@ -22,57 +22,42 @@
     <h1 class="text-center">Escolha o tamanho do Açaí:</h1>
 
     <!-- Produto 1 -->
+    <div class="row">
         <div class="col-md-4">
-               <img id="imagemProduto" src="./images/acai300g.png" alt="Açaí Premium 300g">
+            <div class="card">
+                <img id="imagemProduto1" src="./images/acai300g.png" alt="Açaí Premium 300g" class="card-img-top">
                 <div class="card-body">
-                   <select class="form-control" id="tamanhoAcai" onchange="atualizarImagem()">
-                <option value="300g">Açaí Premium 300g</option>
-                <option value="500g">Açaí Premium 500g</option>
-                <option value="700g">Açaí Premium 700g</option>
-            </select>
+                    <h5 class="card-title">Açaí Premium 300g</h5>
                     <p class="card-text">Permite até 3 Adicionais</p>
-                    <form action="https://api.whatsapp.com/send" method="GET" target="_blank">
-                        <input type="hidden" name="phone" value="5585997030075">
-                        <input type="hidden" name="text" value="Gostaria de adicionar ao carrinho: Açaí Premium 300g">
+                    <form>
+                        <select class="form-control" id="tamanhoAcai1" onchange="atualizarImagem('imagemProduto1', 'tamanhoAcai1')">
+                            <option value="300g">300g</option>
+                            <option value="500g">500g</option>
+                            <option value="700g">700g</option>
+                        </select>
                         <div class="form-check">
                             <label>Adicionais:</label><br>
                             <input type="checkbox" id="cremeDeNinho1" name="adicionais300g" value="Creme de Ninho">
                             <label for="cremeDeNinho">Creme de Ninho</label><br>
-                            <input type="checkbox" id="kiwi1" name="adicionais300g" value="Kiwi">
-                            <label for="kiwi">Kiwi</label><br>
-                            <input type="checkbox" id="castanha1" name="adicionais300g" value="Castanha">
-                            <label for="castanha">Castanha</label><br>
-                            <input type="checkbox" id="leiteCondensado" name="adicionais300g" value="Leite Condensado">
-                            <label for="leiteCondensado">Leite Condensado</label><br>
-                            <input type="checkbox" id="ameixa1" name="adicionais300g" value="Ameixa">
-                            <label for="ameixa">Ameixa</label><br>
-                            <input type="checkbox" id="coberturaMorango1" name="adicionais300g" value="Cobertura de Morango">
-                            <label for="coberturaMorango">Cobertura de Morango</label><br>
-                            <input type="checkbox" id="leiteEmPo1" name="adicionais300g" value="Leite em Pó">
-                            <label for="leiteEmPo">Leite em Pó</label><br>
-                            <input type="checkbox" id="banana1" name="adicionais300g" value="Banana">
-                            <label for="banana">Banana</label><br>
-                            <input type="checkbox" id="gotinhasCacau1" name="adicionais300g" value="Gotinhas 70% Cacau">
-                            <label for="gotinhasCacau">Gotinhas 70% Cacau</label><br>
-                            <input type="checkbox" id="farinhaLactea1" name="adicionais300g" value="Farinha Láctea">
-                            <label for="farinhaLactea">Farinha Láctea</label><br>
-                            <input type="checkbox" id="morango1" name="adicionais300g" value="Morango">
-                            <label for="morango">Morango</label><br>
-                            <input type="checkbox" id="tubetesChocolate1" name="adicionais300g" value="Tubetes Chocolate">
-                            <label for="tubetesChocolate">Tubetes Chocolate</label><br>
-                            <input type="checkbox" id="ovomaltinePo1" name="adicionais300g" value="Ovomaltine em Pó">
-                            <label for="ovomaltinePo">Ovomaltine em Pó</label><br>
-                            <input type="checkbox" id="granola1" name="adicionais300g" value="Granola">
-                            <label for="granola">Granola</label><br>
-                            <input type="checkbox" id="m&m1" name="adicionais300g" value="M&M">
-                            <label for="m&m">M&M</label><br>
+                            <!-- Adicione mais checkboxes para os outros adicionais -->
                         </div>
-			<small class="text-muted">Selecione até 3 adicionais</small><br>
-                         <button class="btn btn-primary" onclick="redirecionarWhatsApp()">Enviar via WhatsApp</button></form>
+                        <small class="text-muted">Selecione até 3 adicionais</small><br>
+                        <button type="button" class="btn btn-primary mt-2" onclick="adicionarAoCarrinho('Açaí Premium 300g')">Adicionar ao Carrinho</button>
+                    </form>
                 </div>
+            </div>
         </div>
-    
-  
+    </div>
+
+    <!-- Carrinho -->
+    <div class="row mt-5">
+        <div class="col-md-6 offset-md-3">
+            <h2 class="text-center">Carrinho</h2>
+            <ul class="list-group" id="carrinhoLista">
+                <!-- Itens adicionados ao carrinho serão exibidos aqui -->
+            </ul>
+        </div>
+    </div>
 
 </div>
 
@@ -82,55 +67,11 @@
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
 
 <script>
-    function redirecionarWhatsApp() {
-        // Verificar o tamanho do açaí selecionado
-        var tamanhoAcai = document.getElementById('tamanhoAcai').value;
-        if (!tamanhoAcai) {
-            alert('Por favor, selecione o tamanho do Açaí.');
-            return;
-        }
+    var carrinho = [];
 
-        // Verificar o número de adicionais selecionados
-        var checkboxes = document.querySelectorAll('input[type="checkbox"]:checked');
-        var numAdicionais = checkboxes.length;
-
-        // Verificar o limite de adicionais com base no tamanho do Açaí
-        var limiteAdicionais;
-        if (tamanhoAcai === '300g') {
-            limiteAdicionais = 3;
-        } else if (tamanhoAcai === '500g') {
-            limiteAdicionais = 4;
-        } else if (tamanhoAcai === '700g') {
-            limiteAdicionais = 5;
-        }
-
-        if (numAdicionais > limiteAdicionais) {
-            alert('Você só pode selecionar até ' + limiteAdicionais + ' adicionais.');
-            return;
-        }
-
-        // Construir a mensagem com o tamanho do açaí selecionado
-        var mensagem = "Açaí Premium " + tamanhoAcai + "\n\nAdicionais selecionados:\n";
-        if (numAdicionais === 0) {
-            mensagem += "Nenhum adicional selecionado";
-        } else {
-            checkboxes.forEach(function(checkbox) {
-                mensagem += checkbox.value + "\n";v
-
-              });
-    }
-
-    // Formatar a mensagem para a URL do WhatsApp
-    mensagem = encodeURIComponent(mensagem);
-
-    // Abrir uma nova janela do WhatsApp com a mensagem
-    var urlWhatsApp = "https://api.whatsapp.com/send?phone=5585997030075&text=" + mensagem;
-    window.open(urlWhatsApp, "_blank");
-}
-
-    function atualizarImagem() {
-        var tamanhoAcai = document.getElementById('tamanhoAcai').value;
-        var imagemProduto = document.getElementById('imagemProduto');
+    function atualizarImagem(idImagem, idSelect) {
+        var tamanhoAcai = document.getElementById(idSelect).value;
+        var imagemProduto = document.getElementById(idImagem);
         if (tamanhoAcai === '300g') {
             imagemProduto.src = './images/300g.png';
             imagemProduto.alt = 'Açaí Premium 300g';
@@ -143,10 +84,41 @@
         }
     }
 
+    function adicionarAoCarrinho(produto) {
+        var tamanhoAcai = document.getElementById('tamanhoAcai1').value;
+        var checkboxes = document.querySelectorAll('#cremeDeNinho1:checked'); // Adicione os IDs de outros checkboxes aqui
+        var adicionais = [];
+        checkboxes.forEach(function(checkbox) {
+            adicionais.push(checkbox.value);
+        });
+        var item = {
+            produto: produto + ' (' + tamanhoAcai + ')',
+            adicionais: adicionais
+        };
+        carrinho.push(item);
+        exibirCarrinho();
+    }
 
+    function exibirCarrinho() {
+        var listaCarrinho = document.getElementById('carrinhoLista');
+        listaCarrinho.innerHTML = '';
+        carrinho.forEach(function(item, index) {
+            var listItem = document.createElement('li');
+            listItem.className = 'list-group-item';
+            listItem.textContent = item.produto;
+            if (item.adicionais.length > 0) {
+                var sublist = document.createElement('ul');
+                item.adicionais.forEach(function(adicional) {
+                    var subItem = document.createElement('li');
+                    subItem.textContent = adicional;
+                    sublist.appendChild(subItem);
+                });
+                listItem.appendChild(sublist);
+            }
+            listaCarrinho.appendChild(listItem);
+        });
+    }
 </script>
+
 </body>
 </html>
-
-
-    
