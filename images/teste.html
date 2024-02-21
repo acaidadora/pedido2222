@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Seleção de Produto</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        /* Estilo personalizado para a página */
+        body {
+            padding-top: 50px;
+        }
+        .card {
+            margin-bottom: 30px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1 class="text-center">Escolha o tamanho do Açaí:</h1>
+
+    <div class="row">
+        <div class="col-md-6 offset-md-3">
+            <select class="form-control" id="tamanhoAcai" onchange="atualizarImagem()">
+                <option value="300g">Açaí Premium 300g</option>
+                <option value="500g">Açaí Premium 500g</option>
+                <option value="700g">Açaí Premium 700g</option>
+            </select>
+        </div>
+    </div>
+
+    <h2 class="text-center mt-5">Selecione os adicionais:</h2>
+
+    <!-- Restante do código dos checkboxes para os adicionais -->
+
+    <div class="text-center mt-4">
+        <button class="btn btn-primary" onclick="redirecionarWhatsApp()">Enviar via WhatsApp</button>
+    </div>
+
+    <!-- Imagem do produto -->
+    <div class="row mt-5">
+        <div class="col-md-6 offset-md-3">
+            <img id="imagemProduto" class="img-fluid" src="acai300g.jpg" alt="Açaí Premium 300g">
+        </div>
+    </div>
+
+</div>
+
+<!-- Bootstrap JS (opcional) -->
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
+
+<script>
+    function atualizarImagem() {
+        var tamanhoAcai = document.getElementById('tamanhoAcai').value;
+        var imagemProduto = document.getElementById('imagemProduto');
+        if (tamanhoAcai === '300g') {
+            imagemProduto.src = 'acai300g.jpg';
+            imagemProduto.alt = 'Açaí Premium 300g';
+        } else if (tamanhoAcai === '500g') {
+            imagemProduto.src = 'acai500g.jpg';
+            imagemProduto.alt = 'Açaí Premium 500g';
+        } else if (tamanhoAcai === '700g') {
+            imagemProduto.src = 'acai700g.jpg';
+            imagemProduto.alt = 'Açaí Premium 700g';
+        }
+    }
+
+    // Restante do seu código JavaScript
+
+</script>
+</body>
+</html>
