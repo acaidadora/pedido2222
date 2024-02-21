@@ -75,6 +75,22 @@
             justify-content: center;
             align-items: center;
         }
+        .btn-carrinho {
+            background-color: #6F4A8E; /* Cor roxa */
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .btn-whatsapp {
+            background-color: green; /* Cor verde */
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
     </style>
 </head>
 <body>
@@ -127,6 +143,7 @@
                     <ul class="list-group" id="carrinhoLista">
                         <!-- Itens adicionados ao carrinho serão exibidos aqui -->
                     </ul>
+                    <button class="btn btn-whatsapp mt-3" onclick="enviarParaWhatsapp()">Enviar para o WhatsApp</button>
                 </div>
             </div>
         </div>
@@ -145,10 +162,8 @@
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
-
 <script>
     var carrinho = [];
-    var alertCarrinho = document.getElementById('alertCarrinho');
 
     function atualizarImagem(idImagem, idSelect) {
         var tamanhoAcai = document.getElementById(idSelect).value;
@@ -183,7 +198,7 @@
     function exibirCarrinho() {
         var listaCarrinho = document.getElementById('carrinhoLista');
         listaCarrinho.innerHTML = '';
-        alertCarrinho.textContent = carrinho.length; // Atualiza o número de itens no alerta
+        document.getElementById('alertCarrinho').textContent = carrinho.length; // Atualiza o número de itens no alerta
 
         if (carrinho.length === 0) {
             var listItem = document.createElement('li');
@@ -207,6 +222,20 @@
                 listaCarrinho.appendChild(listItem);
             });
         }
+    }
+
+    function enviarParaWhatsapp() {
+        var mensagem = 'Itens no carrinho:\n';
+        carrinho.forEach(function(item, index) {
+            mensagem += item.produto + '\n';
+            item.adicionais.forEach(function(adicional) {
+                mensagem += '- ' + adicional + '\n';
+            });
+        });
+        // URL do WhatsApp com a mensagem
+        var urlWhatsApp = 'https://api.whatsapp.com/send?text=' + encodeURIComponent(mensagem);
+        // Abrir a página do WhatsApp
+        window.open(urlWhatsApp, '_blank');
     }
 </script>
 
