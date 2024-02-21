@@ -236,13 +236,12 @@ function atualizarAdicionais() {
 // Chamada da função quando o tamanho do açaí é alterado
 document.getElementById('tamanhoAcai1').addEventListener('change', atualizarAdicionais);
 
-    function adicionarAoCarrinho(produto) {
+   // Função para adicionar um item ao carrinho
+function adicionarAoCarrinho(produto) {
     var tamanhoAcai = document.getElementById('tamanhoAcai1').value;
     var checkboxes = document.querySelectorAll('input[name="adicionais"]:checked');
-    var adicionais = [];
-    checkboxes.forEach(function(checkbox) {
-        adicionais.push(checkbox.value);
-    });
+    var numAdicionais = checkboxes.length;
+
     var limiteAdicionais;
     if (tamanhoAcai === '300g') {
         limiteAdicionais = 3;
@@ -251,10 +250,17 @@ document.getElementById('tamanhoAcai1').addEventListener('change', atualizarAdic
     } else if (tamanhoAcai === '700g') {
         limiteAdicionais = 5;
     }
-    if (adicionais.length > limiteAdicionais) {
+
+    if (numAdicionais > limiteAdicionais) {
         alert('Você só pode selecionar até ' + limiteAdicionais + ' adicionais.');
         return;
     }
+
+    var adicionais = [];
+    checkboxes.forEach(function(checkbox) {
+        adicionais.push(checkbox.value);
+    });
+
     var item = {
         produto: produto + ' (' + tamanhoAcai + ')',
         adicionais: adicionais
@@ -262,6 +268,30 @@ document.getElementById('tamanhoAcai1').addEventListener('change', atualizarAdic
     carrinho.push(item);
     exibirCarrinho();
 }
+
+// Event listener para os checkboxes
+var checkboxes = document.querySelectorAll('input[name="adicionais"]');
+checkboxes.forEach(function(checkbox) {
+    checkbox.addEventListener('change', function() {
+        var numAdicionais = document.querySelectorAll('input[name="adicionais"]:checked').length;
+        var tamanhoAcai = document.getElementById('tamanhoAcai1').value;
+        var limiteAdicionais;
+
+        if (tamanhoAcai === '300g') {
+            limiteAdicionais = 3;
+        } else if (tamanhoAcai === '500g') {
+            limiteAdicionais = 4;
+        } else if (tamanhoAcai === '700g') {
+            limiteAdicionais = 5;
+        }
+
+        if (numAdicionais > limiteAdicionais) {
+            alert('Você só pode selecionar até ' + limiteAdicionais + ' adicionais.');
+            checkbox.checked = false; // Desmarcar o checkbox
+        }
+    });
+});
+
 
 
 
