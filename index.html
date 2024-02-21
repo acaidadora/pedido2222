@@ -22,23 +22,12 @@
     <h1 class="text-center">Escolha o tamanho do Açaí:</h1>
 
     <div class="row">
-        <div class="col-md-4">
-            <div class="form-check">
-                <input class="form-check-input" type="radio" name="tamanho-acai" id="tamanho300g" value="300g">
-                <label class="form-check-label" for="tamanho300g">Açaí Premium 300g</label>
-            </div>
-        </div>
-        <div class="col-md-4">
-            <div class="form-check">
-                <input class="form-check-input" type="radio" name="tamanho-acai" id="tamanho500g" value="500g">
-                <label class="form-check-label" for="tamanho500g">Açaí Premium 500g</label>
-            </div>
-        </div>
-        <div class="col-md-4">
-            <div class="form-check">
-                <input class="form-check-input" type="radio" name="tamanho-acai" id="tamanho700g" value="700g">
-                <label class="form-check-label" for="tamanho700g">Açaí Premium 700g</label>
-            </div>
+        <div class="col-md-6 offset-md-3">
+            <select class="form-control" id="tamanhoAcai">
+                <option value="300g">Açaí Premium 300g</option>
+                <option value="500g">Açaí Premium 500g</option>
+                <option value="700g">Açaí Premium 700g</option>
+            </select>
         </div>
     </div>
 
@@ -84,33 +73,53 @@
 <script>
     function redirecionarWhatsApp() {
         // Verificar o tamanho do açaí selecionado
-        var tamanhoAcai = document.querySelector('input[name="tamanho-acai"]:checked');
+        var tamanhoAcai = document.getElementById('tamanhoAcai').value;
         if (!tamanhoAcai) {
             alert('Por favor, selecione o tamanho do Açaí.');
             return;
         }
 
-        // Construir a mensagem com o tamanho do açaí selecionado
-        var mensagem = "Açaí Premium " + tamanhoAcai.value + "\n\nAdicionais selecionados:\n";
+        // Verificar o número de adicionais selecionados
+        var checkboxes = document.querySelectorAll('input[type="checkbox"]:checked');
+        var numAdicionais = checkboxes.length;
 
-        // Verificar quais adicionais foram selecionados
-        var adicionais = document.querySelectorAll('input[type="checkbox"]:checked');
-        if (adicionais.length === 0) {
-            mensagem += "Nenhum adicional selecionado";
-        } else {
-            adicionais.forEach(function(checkbox) {
-                mensagem += checkbox.value + "\n";
-            });
+        // Verificar o limite de adicionais com base no tamanho do Açaí
+        var limiteAdicionais;
+        if (tamanhoAcai === '300g') {
+            limiteAdicionais = 3;
+        } else if (tamanhoAcai === '500g') {
+            limiteAdicionais = 4;
+        } else if (tamanhoAcai === '700g') {
+            limiteAdicionais = 5;
         }
 
-        // Formatar a mensagem para a URL do WhatsApp
-        mensagem = encodeURIComponent(mensagem);
+        if (numAdicionais > limiteAdicionais) {
+            alert('Você só pode selecionar até ' + limiteAdicionais + ' adicionais.');
+            return;
+        }
 
-        // Abrir uma nova janela do WhatsApp com a mensagem
-        var urlWhatsApp = "https://api.whatsapp.com/send?phone=5585997030075&text=" + mensagem;
-        window.open(urlWhatsApp, "_blank");
+        // Construir a mensagem com o tamanho do açaí selecionado
+        var mensagem = "Açaí Premium " + tamanhoAcai + "\n\nAdicionais selecionados:\n";
+        if (numAdicionais === 0) {
+            mensagem += "Nenhum adicional selecionado";
+        } else {
+            checkboxes.forEach(function(checkbox) {
+                mensagem += checkbox.value + "\n";v
+
+              });
     }
-</script>
 
+    // Formatar a mensagem para a URL do WhatsApp
+    mensagem = encodeURIComponent(mensagem);
+
+    // Abrir uma nova janela do WhatsApp com a mensagem
+    var urlWhatsApp = "https://api.whatsapp.com/send?phone=5585997030075&text=" + mensagem;
+    window.open(urlWhatsApp, "_blank");
+}
+
+</script>
 </body>
 </html>
+
+
+    
