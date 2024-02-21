@@ -106,8 +106,8 @@
                 <img id="imagemProduto1" src="./images/acai300g.png" alt="Açaí Premium 300g" class="card-img-top">
                 <div class="card-body">
                     <h5 class="card-title">Açaí Premium</h5> <!-- Alterado o título -->
-                    <p class="card-text">Permite até 3 Adicionais</p>
-                    <form>
+                   <p id="textoAdicionais" class="card-text">Permite até 3 Adicionais</p> <!-- Alterado o texto -->
+                 <form>
                         <select class="form-control" id="tamanhoAcai1" onchange="atualizarImagem('imagemProduto1', 'tamanhoAcai1')">
                             <option value="300g">300g</option>
                             <option value="500g">500g</option>
@@ -226,6 +226,15 @@
             imagemProduto.alt = 'Açaí Premium 700g';
         }
     }
+function atualizarAdicionais() {
+    var select = document.getElementById('tamanhoAcai1');
+    var textoAdicionais = document.getElementById('textoAdicionais');
+    var numAdicionais = select.options[select.selectedIndex].dataset.adicionais;
+    textoAdicionais.textContent = "Permite até " + numAdicionais + " Adicionais";
+}
+
+// Chamada da função quando o tamanho do açaí é alterado
+document.getElementById('tamanhoAcai1').addEventListener('change', atualizarAdicionais);
 
     function adicionarAoCarrinho(produto) {
     var tamanhoAcai = document.getElementById('tamanhoAcai1').value;
