@@ -4,45 +4,94 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Seleção de Produto</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        /* Estilo personalizado para a página */
+        body {
+            padding-top: 50px;
+        }
+        .card {
+            margin-bottom: 30px;
+        }
+    </style>
 </head>
 <body>
 
-<h1>Escolha o tamanho do Açaí:</h1>
+<div class="container">
+    <h1 class="text-center">Escolha o tamanho do Açaí:</h1>
 
-<select id="tamanho-acai">
-    <option value="300g">300g</option>
-    <option value="500g">500g</option>
-    <option value="700g">700g</option>
-</select>
+    <div class="row">
+        <div class="col-md-4">
+            <div class="card">
+                <div class="card-body text-center">
+                    <h5 class="card-title">Açaí Premium 300g</h5>
+                    <button class="btn btn-primary" onclick="redirecionarWhatsApp('300g')">Selecionar</button>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card">
+                <div class="card-body text-center">
+                    <h5 class="card-title">Açaí Premium 500g</h5>
+                    <button class="btn btn-primary" onclick="redirecionarWhatsApp('500g')">Selecionar</button>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card">
+                <div class="card-body text-center">
+                    <h5 class="card-title">Açaí Premium 700g</h5>
+                    <button class="btn btn-primary" onclick="redirecionarWhatsApp('700g')">Selecionar</button>
+                </div>
+            </div>
+        </div>
+    </div>
 
-<h2>Selecione os adicionais:</h2>
+    <h2 class="text-center mt-5">Selecione os adicionais:</h2>
 
-<input type="checkbox" id="creme-de-ninho" name="adicionais" value="Creme de Ninho">
-<label for="creme-de-ninho">Creme de Ninho</label><br>
+    <div class="row">
+        <div class="col-md-4">
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" id="cremeDeNinho" value="Creme de Ninho">
+                <label class="form-check-label" for="cremeDeNinho">Creme de Ninho</label>
+            </div>
+            <!-- Adicione mais checkboxes para os outros adicionais -->
+        </div>
+        <div class="col-md-4">
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" id="kiwi" value="Kiwi">
+                <label class="form-check-label" for="kiwi">Kiwi</label>
+            </div>
+            <!-- Adicione mais checkboxes para os outros adicionais -->
+        </div>
+        <div class="col-md-4">
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" id="castanha" value="Castanha">
+                <label class="form-check-label" for="castanha">Castanha</label>
+            </div>
+            <!-- Adicione mais checkboxes para os outros adicionais -->
+        </div>
+    </div>
 
-<input type="checkbox" id="kiwi" name="adicionais" value="Kiwi">
-<label for="kiwi">Kiwi</label><br>
+    <!-- Adicione mais linhas e colunas conforme necessário para os outros adicionais -->
 
-<!-- Adicione mais checkboxes para os outros adicionais -->
+</div>
 
-<button onclick="adicionarAoCarrinho()">Adicionar ao Carrinho</button>
+<!-- Bootstrap JS (opcional) -->
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
 
 <script>
-    function adicionarAoCarrinho() {
-        // Obter o tamanho selecionado do açaí
-        var tamanhoAcai = document.getElementById("tamanho-acai").value;
+    function redirecionarWhatsApp(tamanho) {
+        // Construir a mensagem com o tamanho do açaí selecionado
+        var mensagem = "Açaí Premium " + tamanho + "\n\nAdicionais selecionados:\n";
 
-        // Obter os adicionais selecionados
-        var adicionaisSelecionados = [];
-        var checkboxes = document.querySelectorAll('input[name="adicionais"]:checked');
-        checkboxes.forEach(function(checkbox) {
-            adicionaisSelecionados.push(checkbox.value);
-        });
-
-        // Construir a mensagem com as informações do produto e adicionais
-        var mensagem = "Açaí Premium " + tamanhoAcai + "\n\nAdicionais selecionados:\n";
-        adicionaisSelecionados.forEach(function(adicional) {
-            mensagem += adicional + "\n";
+        // Verificar quais adicionais foram selecionados
+        var adicionais = document.querySelectorAll('input[type="checkbox"]:checked');
+        adicionais.forEach(function(checkbox) {
+            mensagem += checkbox.value + "\n";
         });
 
         // Formatar a mensagem para a URL do WhatsApp
