@@ -217,6 +217,8 @@
                 <ul class="list-group" id="carrinhoLista">
                     <!-- Itens adicionados ao carrinho serão exibidos aqui -->
                 </ul>
+				<p class="text-white">Total: R$ <span id="totalCompra"></span></p> <!-- Elemento para exibir o total -->
+                
                 <button class="btn btn-whatsapp mt-3" onclick="enviarParaWhatsapp()">Enviar para o WhatsApp</button>
             </div>
         </div>
@@ -303,6 +305,8 @@ function adicionarAoCarrinho(produto) {
     checkboxes.forEach(function(checkbox) {
         checkbox.checked = false;
     });
+	
+	exibirTotal();
 }
 
 // Event listener para os checkboxes
@@ -358,7 +362,9 @@ checkboxes.forEach(function(checkbox) {
                 listaCarrinho.appendChild(listItem);
             });
         }
+		exibirTotal();
     }
+	
 
     function enviarParaWhatsapp() {
     var mensagem = 'Nome Cliente: '+ '*' + document.getElementById('nomeCliente').value + '*' +'\n';
@@ -377,14 +383,43 @@ checkboxes.forEach(function(checkbox) {
             item.adicionais.forEach(function(adicional) {
                 mensagem += '_' + adicional + '_' + '\n';
             });
+        } else {
+            mensagem += 'Sem adicionais\n';
         }
-        mensagem += '\n'; // Adiciona uma linha em branco após cada item do carrinho
+		
+		mensagem += '\n';
     });
+	  // Adiciona o total da compra ao final da mensagem
+    mensagem += 'Total: R$ ' + calcularTotal();
+	
     // URL do WhatsApp com a mensagem
     var urlWhatsApp = 'https://api.whatsapp.com/send?text=' + encodeURIComponent(mensagem);
     // Abrir a página do WhatsApp
     window.open(urlWhatsApp, '_blank');
 }
+
+function calcularTotal() {
+    var total = 0;
+    carrinho.forEach(function(item) {
+        var preco;
+        if (item.produto.includes('300g')) {
+            preco = 12.00;
+        } else if (item.produto.includes('500g')) {
+            preco = 19.00;
+        } else if (item.produto.includes('700g')) {
+            preco = 28.00;
+        }
+        total += preco;
+    });
+    return total.toFixed(2); // Arredonda o total para duas casas decimais
+}
+
+function exibirTotal() {
+    var total = calcularTotal();
+    document.getElementById('totalCompra').textContent = total;
+}
+
+
 
 
 </script>
