@@ -228,19 +228,20 @@
     }
 
     function adicionarAoCarrinho(produto) {
-        var tamanhoAcai = document.getElementById('tamanhoAcai1').value;
-        var checkboxes = document.querySelectorAll('#cremeDeNinho1:checked'); // Adicione os IDs de outros checkboxes aqui
-        var adicionais = [];
-        checkboxes.forEach(function(checkbox) {
-            adicionais.push(checkbox.value);
-        });
-        var item = {
-            produto: produto + ' (' + tamanhoAcai + ')',
-            adicionais: adicionais
-        };
-        carrinho.push(item);
-        exibirCarrinho();
-    }
+    var tamanhoAcai = document.getElementById('tamanhoAcai1').value;
+    var checkboxes = document.querySelectorAll('input[name="adicionais"]:checked');
+    var adicionais = [];
+    checkboxes.forEach(function(checkbox) {
+        adicionais.push(checkbox.value);
+    });
+    var item = {
+        produto: produto + ' (' + tamanhoAcai + ')',
+        adicionais: adicionais
+    };
+    carrinho.push(item);
+    exibirCarrinho();
+}
+
 
     function exibirCarrinho() {
         var listaCarrinho = document.getElementById('carrinhoLista');
