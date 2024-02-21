@@ -234,6 +234,18 @@
     checkboxes.forEach(function(checkbox) {
         adicionais.push(checkbox.value);
     });
+    var limiteAdicionais;
+    if (tamanhoAcai === '300g') {
+        limiteAdicionais = 3;
+    } else if (tamanhoAcai === '500g') {
+        limiteAdicionais = 4;
+    } else if (tamanhoAcai === '700g') {
+        limiteAdicionais = 5;
+    }
+    if (adicionais.length > limiteAdicionais) {
+        alert('Você só pode selecionar até ' + limiteAdicionais + ' adicionais.');
+        return;
+    }
     var item = {
         produto: produto + ' (' + tamanhoAcai + ')',
         adicionais: adicionais
@@ -241,6 +253,7 @@
     carrinho.push(item);
     exibirCarrinho();
 }
+
 
 
     function exibirCarrinho() {
